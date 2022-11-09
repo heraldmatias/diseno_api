@@ -4,7 +4,6 @@ import { CulturaGastronomicaEntity } from '../cultura-gastronomica/cultura-gastr
 import { RestauranteEspecializadoEntity } from '../restaurante-especializado/restaurante-especializado.entity';
 import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
 import { Repository } from 'typeorm';
-import './cultura-gastronomica-restaurante-especializado.service';
 import { faker } from '@faker-js/faker';
 import { CulturaGastronomicaRestauranteEspecializadoService } from './cultura-gastronomica-restaurante-especializado.service';
 import { CacheModule } from '@nestjs/common';
@@ -14,8 +13,7 @@ describe('CulturaGastronomicaRestauranteEspecializadoService', () => {
   let culturaGastronomicaRepository: Repository<CulturaGastronomicaEntity>;
   let restauranteEspecializadoRepository: Repository<RestauranteEspecializadoEntity>;
   let culturaGastronomica: CulturaGastronomicaEntity;
-  let restaurantesEspecializadosList : RestauranteEspecializadoEntity[];
-
+  let restaurantesEspecializadosList: RestauranteEspecializadoEntity[];
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -91,14 +89,6 @@ describe('CulturaGastronomicaRestauranteEspecializadoService', () => {
     await expect(() => service.addRestauranteEspecializadoCulturaGastronomica("0", newRestauranteEspecializado.id)).rejects.toHaveProperty("message", "La cultura gastronomica con el id dado no fue encontrada");
   });
 
-  // it('findRestauranteEspecializadoByCulturaGastronomicaIdRestauranteEspecializadoId should return restauranteEspecializado by culturaGastronomica', async () => {
-  //   const restauranteEspecializado: RestauranteEspecializadoEntity = restaurantesEspecializadosList[0];
-  //   const storedRestauranteEspecializado: RestauranteEspecializadoEntity = await service.findRestauranteEspecializadoByCulturaGastronomicaIdRestauranteEspecializadoId(culturaGastronomica.id, restauranteEspecializado.id, )
-  //   expect(storedRestauranteEspecializado).not.toBeNull();
-  //   expect(storedRestauranteEspecializado.nombre).toBe(restauranteEspecializado.nombre);
-  //   expect(storedRestauranteEspecializado.ciudad).toBe(restauranteEspecializado.ciudad);
-  // });
-
   it('findRestauranteEspecializadoByCulturaGastronomicaIdRestauranteEspecializadoId should throw an exception for an invalid restauranteEspecializado', async () => {
     await expect(()=> service.findRestauranteEspecializadoByCulturaGastronomicaIdRestauranteEspecializadoId(culturaGastronomica.id, "0")).rejects.toHaveProperty("message", "El restaurante especializado con el id dado no fue encontrado"); 
   });
@@ -115,11 +105,6 @@ describe('CulturaGastronomicaRestauranteEspecializadoService', () => {
     });
 
     await expect(()=> service.findRestauranteEspecializadoByCulturaGastronomicaIdRestauranteEspecializadoId(culturaGastronomica.id, newRestauranteEspecializado.id)).rejects.toHaveProperty("message", "El restaurante con el id dado no fue encontrado"); 
-  });
-
-  it('findRestauranteEspecializadosByCulturaGastronomicaId should return restaurantesEspecializados by culturaGastronomica', async ()=>{
-    const restaurantesEspecializados: RestauranteEspecializadoEntity[] = await service.findRestaurantesEspecializadosByCulturaGastronomicaId(culturaGastronomica.id);
-    //expect(restaurantesEspecializados.length).toBe(0)
   });
 
   it('findRestauranteEspecializadosByCulturaGastronomicaId should throw an exception for an invalid culturaGastronomica', async () => {
@@ -154,18 +139,6 @@ describe('CulturaGastronomicaRestauranteEspecializadoService', () => {
 
     await expect(()=> service.associateRestauranteEspecializadosCulturaGastronomica(culturaGastronomica.id, [newRestauranteEspecializado])).rejects.toHaveProperty("message", "El restaurante especializado con el id dado no fue encontrado"); 
   });
-
-  // it('deleteRestauranteEspecializadoToCulturaGastronomica should remove an restauranteEspecializado from a culturaGastronomica', async () => {
-  //   const restauranteEspecializado: RestauranteEspecializadoEntity = restaurantesEspecializadosList[0];
-    
-  //   await service.deleteRestauranteEspecializadoCulturaGastronomica(culturaGastronomica.id, restauranteEspecializado.id);
-
-  //   const storedCulturaGastronomica: CulturaGastronomicaEntity = await culturaGastronomicaRepository.findOne({where: {id: culturaGastronomica.id}, relations: ["restaurantesEspecializados"]});
-  //   const deletedRestauranteEspecializado: RestauranteEspecializadoEntity = storedCulturaGastronomica.restaurantesEspecializados.find(a => a.id === restauranteEspecializado.id);
-
-  //   expect(deletedRestauranteEspecializado).toBeUndefined();
-
-  // });
 
   it('deleteRestauranteEspecializadoToCulturaGastronomica should thrown an exception for an invalid restauranteEspecializado', async () => {
     await expect(()=> service.deleteRestauranteEspecializadoCulturaGastronomica(culturaGastronomica.id, "0")).rejects.toHaveProperty("message", "El restaurante especializado con el id dado no fue encontrado"); 
