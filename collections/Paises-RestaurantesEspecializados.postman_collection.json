@@ -1,0 +1,1474 @@
+{
+	"info": {
+		"_postman_id": "7b5fa5a8-d202-4550-9bd8-8ee321bbc07f",
+		"name": "Paises-RestaurantesEspecializados",
+		"description": "Documentación de la relación Países-RestaurantesEspecializados (En esa cardinalidad)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22460736"
+	},
+	"item": [
+		{
+			"name": "Agregar un país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"pais_id\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"nombre\": \"Francia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises"
+					]
+				},
+				"description": "Esta petición crea un país nuevo. El API devuelve la información del país con el ID asignado por la base de datos"
+			},
+			"response": [
+				{
+					"name": "Agregar un pais",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"nombre\": \"Francia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/paises",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"paises"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\":\"1\",\n    \"nombre\": \"Francia\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un restaurante especializado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"restauranteEspecializado_id\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"nombre\": \"La cosecha parrillada\",\n   \"ciudad\": \"Popayán\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar otro restaurante especializado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"restauranteEspecializado_id_2\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"nombre\": \"Luna\",\n   \"ciudad\": \"Bogotá\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un Restaurante Especializado a un país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/{{restauranteEspecializado_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id}}"
+					]
+				},
+				"description": "Se asocia un País a un Restaurante Especializado con IDs determinados. El API retorna la información detallada del País especificado con la información del Restaurante Especializado asociado."
+			},
+			"response": [
+				{
+					"name": "Agregar un Restaurante Especializado a un país",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"10"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\":\"1\",\n    \"nombre\": \"Francia\",\n    \"restaurantesEspecializados\":{\n        \"id\":\"10\",\n        \"nombre\":\"Linguinni\",\n        \"ciudad\":\"Paris\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un Restaurante Especializado que no existe a un país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se solicita asociar un País a un Restaurante Especializado con un ID que no está registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Agregar un Restaurante Especializado que no existe a un país",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n   \"statusCode\": 404,\n   \"mensaje\": \"El Restaurante Especializado con el id indicado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un Restaurante Especializado a un país que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El país con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados/{{restauranteEspecializado_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id}}"
+					]
+				},
+				"description": "Se solicita asociar un País con un ID que no está registrado a un Restaurante Especializado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Agregar un Restaurante Especializado a un país que no existe",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesEspecializados",
+								"10"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n   \"statusCode\": 404,\n   \"mensaje\": \"El país con el id indicado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un Restaurante Especializado de un país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/{{restauranteEspecializado_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id}}"
+					]
+				},
+				"description": "Se soicita la información de un Restaurante Especializado asociado a un País con IDs determinados. El API retorna la información de ese Restaurante Especializado"
+			},
+			"response": [
+				{
+					"name": "Obtener un Restaurante Especializado de un país",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"10"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": \"10\",\n    \"nombre\": \"Linguinni\",\n    \"ciudad\": \"París\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un Restaurante Especializado que no existe de un país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se solicita la información de una Cultura Gastronómica un País con un ID que no está registrado a una  \nCultura Gastronómica. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener un Restaurante Especializado que no existe de un país",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"mensaje\": \"El Restaurante Especializado con el id especificado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un Restaurante Especializado de un país que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El país con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados/{{restauranteEspecializado_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id}}"
+					]
+				},
+				"description": "Se solicita la información de un Restaurante Especializado asociado a un País con un ID que no está registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener un Restaurante Especializado de una país que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesEspecializados",
+								"10"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n   \"statusCode\": 404,\n   \"mensaje\": \"El país con el id especificado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un Restaurante Especializado que no está asociado a un país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"   pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no está asociado al país indicado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/{{restauranteEspecializado_id_2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id_2}}"
+					]
+				},
+				"description": "Se solicita la información de un Restaurante Especializado de un País con el que no está asociado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener un Restaurante Especializado que no está asociado a un país",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"300"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n   \"statusCode\": 404,\n   \"mensaje\": \"El Restaurante Especializado con el id indicado no está asociada al País\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener los Restaurantes Especializados de un País",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados"
+					]
+				},
+				"description": "Se solicita la información de todos los Restaurantes Especializados asociados a un País. El API devuelve la lista de los Restaurantes Especializados asociados"
+			},
+			"response": [
+				{
+					"name": "Obtener los Restaurantes Especializados de un País",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/culturasGastronomicas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"culturasGastronomicas"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"10\",\n        \"nombre\": \"Linguinni\",\n        \"ciudad\": \"Paris\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener los Restaurantes Especializados de un País que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El país con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesEspecializados"
+					]
+				},
+				"description": "Se solicita la información de los Restaurantes Especializados asociados a un País que no existe. El API devuelve el código y mensaje de error"
+			},
+			"response": [
+				{
+					"name": "Obtener los Restaurantes Especializados de un País que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesEspecializados"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n   \"statusCode\": 404,\n   \"mensaje\": \"El país con el id especificado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar la lista de Restaurantes Especializados de un País",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n   {\n       \"id\": \"{{restauranteEspecializado_id_2}}\"\n   }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados"
+					]
+				},
+				"description": "Se actualiza la lista de Restaurantes Especializados asociados a una país determinado. El API retorna la información detallada del país junto con los nuevos Restaurantes Especializados asociados"
+			},
+			"response": [
+				{
+					"name": "Actualizar la lista de Restaurantes Especializados de un País",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n       \"id\": \"10\"\n   }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\":\"1\",\n    \"nombre\": \"Francia\",\n    \"restaurantesEspecializados\":{\n        \"id\":\"10\",\n        \"nombre\":\"Linguinni\",\n        \"ciudad\":\"Paris\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar los Restaurantes Especializados que no existen de un País",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n   {\n       \"id\": \"00000000-0000-0000-0000-000000000000\"\n   }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados"
+					]
+				},
+				"description": "Se solicita actualizar la lista de Restaurantes Especializados asociados a un país con IDs que no están registrados. El API devuelve el código y mensaje de error"
+			},
+			"response": [
+				{
+					"name": "Actualizar los Restaurantes Especializados que no existen de un País",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n       \"id\": \"00000000-0000-0000-0000-000000000000\"\n   }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"{{pais_id}}",
+								"restaurantesEspecializados"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"mensaje\": \"El Restaurante Especializado con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar los Restaurantes Especializados de un País que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El país con el id dado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n   {\n       \"id\": \"{{restauranteEspecializado_id}}\"\n   }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesEspecializados"
+					]
+				},
+				"description": "Se solicita actualizar la lista de Restaurantes Especializados asociados a un país que no está registrado. El API devuelve el código y mensaje de error"
+			},
+			"response": [
+				{
+					"name": "Actualizar los Restaurantes Especializados de un País que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n       \"id\": \"{{CulturaGastronomica_id}}\"\n   }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesEspecializados"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"mensaje\": \"El país con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un Restaurante Especializado de un País que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El país con el id indicado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados/{{restauranteEspecializado_id_2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id_2}}"
+					]
+				},
+				"description": "Se solicita eliminar un Restaurante Especializado de la lista asociada a un país que no está registrado. El API devuelve el código y mensaje de error"
+			},
+			"response": [
+				{
+					"name": "Borrar un Restaurante Especializado de un País que no existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/00000000-0000-0000-0000-000000000000/restaurantesEspecializados/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesEspecializados",
+								"10"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"mensaje\": \"El país con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un Restaurante Especializado que no existe de un País",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id indicado no fue encontrado\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se solicita eliminar un Restaurante Especializado que no existe de la lista asociada a un país. El API devuelve el código y mensaje de error"
+			},
+			"response": [
+				{
+					"name": "Borrar un Restaurante Especializado que no existe de un País",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"mensaje\": \"El Restaurante Especializado con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar el Restaurante Especializado que no está asociado a un País",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"   pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id indicado no está asociado al país\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/{{restauranteEspecializado_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id}}"
+					]
+				},
+				"description": "Se solicita eliminar un Restaurante Especializado de la lista asociada a un país al cual no se encuentra asociado. El API devuelve el código y mensaje de error"
+			},
+			"response": [
+				{
+					"name": "Borrar el Restaurante Especializado que no está asociado a un País",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"100"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"mensaje\": \"El Restaurante Especializado con el id dado no está asociada al país con el id dado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un Restaurante Especializado de un País",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}/restaurantesEspecializados/{{restauranteEspecializado_id_2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}",
+						"restaurantesEspecializados",
+						"{{restauranteEspecializado_id_2}}"
+					]
+				},
+				"description": "Se elimina un Restaurante Especializado de la lista asociada a un País"
+			},
+			"response": [
+				{
+					"name": "Borrar un Restaurante Especializado de un País",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1/restaurantesEspecializados/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1",
+								"restaurantesEspecializados",
+								"10"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Eliminar el país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/paises/{{pais_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"paises",
+						"{{pais_id}}"
+					]
+				},
+				"description": "Se solicita eliminar un país con un ID determinado. El API devuelve la confirmación de que el país fue eliminado correctamente"
+			},
+			"response": [
+				{
+					"name": "Eliminar un país",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/paises/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"paises",
+								"1"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Eliminar el primer restaurante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/{{restauranteEspecializado_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"{{restauranteEspecializado_id}}"
+					]
+				},
+				"description": "Se solicita eliminar un país con un ID determinado. El API devuelve la confirmación de que el país fue eliminado correctamente"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el segundo restaurante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/{{restauranteEspecializado_id_2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"{{restauranteEspecializado_id_2}}"
+					]
+				},
+				"description": "Se solicita eliminar un país con un ID determinado. El API devuelve la confirmación de que el país fue eliminado correctamente"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

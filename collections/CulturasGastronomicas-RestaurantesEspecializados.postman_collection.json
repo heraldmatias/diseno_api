@@ -1,0 +1,1255 @@
+{
+	"info": {
+		"_postman_id": "ad0a75a4-72fd-4c59-9b94-a908cdd12d5b",
+		"name": "CulturasGastronomicas-RestaurantesEspecializados",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19274258"
+	},
+	"item": [
+		{
+			"name": "Agregar una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"cultura_Gastronomica_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Cultura Colombiana\",\r\n    \"descripcion\": \"De Colombia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas"
+					]
+				},
+				"description": "Esta petición crea un restaurante especializado nuevo. El API devuelve la información del restaurante con el ID asignado por la base de datos."
+			},
+			"response": [
+				{
+					"name": "Agregar un restaurante especializado",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Cultura Colombiana\",\r\n    \"descripcion\": \"De Colombia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"nombre\": \"Cultura Colombiana\",\n    \"descripcion\": \"De Colombia\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un restaurante a una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Se agrega una cultura gastronómica con un ID específico a un restaurante especializado con un ID determinado. El API devuelve la información detallada del restaurante con la nueva información."
+			},
+			"response": [
+				{
+					"name": "Agregar una cultura gastronomica a un restaurante",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"nombre\": \"La Cosecha Parrillada\",\n    \"descripcion\": \"Popayán\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un restaurante que no existe a una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"La cultura gastronomica con el id dado no fue encontrada\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se agrega una cultura gastronómica con un ID no registrado a un restaurante con un ID determinado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Agregar una cultura gastronomica que no existe a un restaurante",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"La cultura gastronomica con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un restaurante a una cultura gastronomica que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante especializado con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000/culturasgastronomicas/{{cultura_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"00000000-0000-0000-0000-000000000000",
+						"culturasgastronomicas",
+						"{{cultura_id}}"
+					]
+				},
+				"description": "Se agrega una cultura gastronómica con ID específico a un restaurante con un ID no registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Agregar un restaurante a una cultura gastronomica que no existe",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cultura-gastronomica/000000/restaurantesespecialziados/{{cultura_Gastronomica_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cultura-gastronomica",
+								"000000",
+								"restaurantesespecialziados",
+								"{{cultura_Gastronomica_id}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"La cultura gastronomica con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante de una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Se solicita la información de una cultura gastronómica con ID específico de un restaurante con ID determinado. El API devuelve la información de esta cultura gastronómica."
+			},
+			"response": [
+				{
+					"name": "Obtener una cultura gastronomica de un restaurante",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"nombre\": \"La Cosecha Parrillada\",\n    \"ciudad\": \"Popayán\",\n    \"pais\": {\n      \"id\": 1,\n      \"nombre\": \"Colombia\"\n    },\n    \"estrella_michelin\": [\n      {\n        \"id\": 1,\n        \"fecha_consecucion\": \"2015-05-22\"\n      },\n      {\n        \"id\": 2,\n        \"fecha_consecucion\": \"2017-08-12\"\n      },\n      {\n        \"id\": 3,\n        \"fecha_consecucion\": \"2020-04-20\"\n      }\n    ],\n    \"cultura_gastronomica\": [\n      {\n        \"id\": 1,\n        \"nombre\": \"Italiana\",\n        \"descripcion\": \"La gastronomía de Italia se caracteriza por los platos de elaboración sencilla. Sus ingredientes principales son el aceite de oliva, las hortalizas y las verduras típicas de la zona. Los platos de pasta más consumidos en esta parte de Italia son las populares pizzas, además de los espaguetis y los macarrones\"\n      },\n      {\n        \"id\": 2,\n        \"nombre\": \"Mexicana\",\n        \"descripcion\": \"La cultura gastronómica Mexicana es conocida por su suculencia y su gran variedad. Sus orígenes se remontan al período prehispánico, cuando una gran cantidad de platillos giraban alrededor del maíz, junto con otros ingredientes como: chiles, frijoles, calabazas, aguacate, tomate, cacao, nopal carne de conejo, armadillo y guajolote, así como insectos, ranas, tortugas y una gran variedad de frutas como ciruelas y pitayas\"\n      }\n    ]\n  }"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante que no existe de una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cultura-gastronomica/{{cultura_Gastronomica_id}}/restaurantesespecialziados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cultura-gastronomica",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecialziados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se solicita la información de una cultura gastronómica con un ID no registrado a un restaurante con un ID determinado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener una cultura gastronomica que no existe de un restaurante",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cultura-gastronomica/{{cultura_Gastronomica_id}}/restaurantesespecialziados/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cultura-gastronomica",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecialziados",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"El restaurante con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante de una cultura gastronomica que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante especializado con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados/{{culturas_Gastronomicas_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesespecializados",
+						"{{culturas_Gastronomicas_id}}"
+					]
+				},
+				"description": "Se solicita información de una cultura gastronómica con un ID específico de un restaurante con un ID no registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener una cultura gastronomica de un restaurante que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados/{{culturas_Gastronomicas_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesespecializados",
+								"{{culturas_Gastronomicas_id}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"El restaurante especializado con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante que no este asociada a una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no está asociado a una cultura gastronomica\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restauranteespecializado/{{cultura_Gastronomica_id_2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restauranteespecializado",
+						"{{cultura_Gastronomica_id_2}}"
+					]
+				},
+				"description": "Se solicita información de una cultura gastronómica con un ID específico de un restaurante con un ID determinado la cual no se encuentra asociada. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener un restaurante que no este asociada a una cultura gastronomica",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}/culturasgastronomicas/{{cultura_id_2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"{{restaurante_id}}",
+								"culturasgastronomicas",
+								"{{cultura_id_2}}"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 412,\n    \"mensaje\": \"La cultura gastronomica con el id dado no está asociada al restaurante\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante de las culturas gastronomicas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Se solicita información de todas las culturas gastronómicas de un restaurante con un ID específico. El API devuelve una lista con la información de las culturas gastronómicas."
+			},
+			"response": [
+				{
+					"name": "Obtener un restaurante de las culturas gastronomicas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"nombre\": \"Cultura Colombiana\",\n        \"descripcion\": \"De Colombia\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante de las culturas gastronomicas que no existen",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"la cultura gastronomica con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Se solicitan todas las culturas gastronómicas de un restaurante con un ID no registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener las culturas gastronomicas de un restaurante que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"la cultura gastronomica con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un restaurante de la cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": \"{{cultura_id_2}}\",\r\n        \"nombre\": \"Francesa\",\r\n        \"descripcion\": \"La gastronomía de Francia está caracterizada por su variedad, fruto de la diversidad regional francesa, tanto cultural como de materias primas, pero también por su refinamiento.​ Su influencia se deja sentir en casi todas las cocinas del mundo occidental, que han ido incorporando a sus bases conocimientos técnicos de la cocina francesa\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{culturas_Gastronomicas_id}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{culturas_Gastronomicas_id}}",
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Se solicita actualizar las culturas gastronómicas de un restaurante con un ID específico. El API devuelve la información del restaurante con las nuevas culturas gastronómicas."
+			},
+			"response": [
+				{
+					"name": "Actualizar un restaurante de la cultura gastronomica",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": {{cultura_id_2}},\r\n        \"nombre\": \"Francesa\",\r\n        \"descripcion\": \"La gastronomía de Francia está caracterizada por su variedad, fruto de la diversidad regional francesa, tanto cultural como de materias primas, pero también por su refinamiento.​ Su influencia se deja sentir en casi todas las cocinas del mundo occidental, que han ido incorporando a sus bases conocimientos técnicos de la cocina francesa\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{culturas_Gastronomicas_id}}/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{culturas_Gastronomicas_id}}",
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Actualizar un restaurante que no existen de una culturas gastronomicas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n        \"nombre\": \"Francesa\",\r\n        \"descripcion\": \"La gastronomía de Francia está caracterizada por su variedad, fruto de la diversidad regional francesa, tanto cultural como de materias primas, pero también por su refinamiento.​ Su influencia se deja sentir en casi todas las cocinas del mundo occidental, que han ido incorporando a sus bases conocimientos técnicos de la cocina francesa\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{culturas_Gastronomicas_id}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{culturas_Gastronomicas_id}}",
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Se solicita actualizar las culturas gastronómicas dadas con IDs que no existen de un restaurante con ID específico. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Actualizar un restaurante que no existen de una culturas gastronomicas",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": 0,\r\n        \"nombre\": \"ejemplo\",\r\n        \"ciudad\": \"Bogota\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{culturas_Gastronomicas_id}}/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{culturas_Gastronomicas_id}}",
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"El restaurante con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un restaurante de una cultura gastronomica que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"la cultura gastronomica con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n        \"nombre\": \"Francesa\",\r\n        \"descripcion\": \"La gastronomía de Francia está caracterizada por su variedad, fruto de la diversidad regional francesa, tanto cultural como de materias primas, pero también por su refinamiento.​ Su influencia se deja sentir en casi todas las cocinas del mundo occidental, que han ido incorporando a sus bases conocimientos técnicos de la cocina francesa\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cultuas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cultuas-gastronomicas",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Se solicita actualizar las culturas gastronómicas con IDs específicos de un restaurante con un ID no registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Actualizar las culturas gastronomicas de un restaurante que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": {{cultura_id_2}},\r\n        \"nombre\": \"Francesa\",\r\n        \"descripcion\": \"La gastronomía de Francia está caracterizada por su variedad, fruto de la diversidad regional francesa, tanto cultural como de materias primas, pero también por su refinamiento.​ Su influencia se deja sentir en casi todas las cocinas del mundo occidental, que han ido incorporando a sus bases conocimientos técnicos de la cocina francesa\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cultuas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cultuas-gastronomicas",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"El restaurante especializado con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un restaurante de una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Se solicita eliminar una cultura gastronómicas con un ID específico de un restaurante con ID determinado. El API devuelve un código de confirmación de la eliminación correcta."
+			},
+			"response": [
+				{
+					"name": "Borrar una cultura gastronomica de un restaurante",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Borrar un restaurante de una cultura gastronomica que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante especializado con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"00000000-0000-0000-0000-000000000000",
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Se solicita eliminar una cultura gastronómica con un ID específico de un restaurante con un ID no registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Borrar una cultura gastronomica de un restaurante que no existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"00000000-0000-0000-0000-000000000000",
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"El restaurante especializado con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un restaurante que no existe de una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"La cultura gastronomica con el id dado no fue encontrada\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se solicita eliminar una cultura gastronómica con un ID no registrado de un restaurante con un ID específico. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Borrar una cultura gastronomica que no existe de un restaurante",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"La cultura gastronomica con el id dado no fue encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un restaurante que no este asociado a una cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"La cultura gastronomica con el id dado no está asociada al restaurante\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}",
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "StartFragment\n\nSe solicita eliminar una cultura gastronómica con un ID específico de un restaurante con un ID determinado pero que no está asociado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Borrar un restaurante que no este asociado a una cultura gastronomica",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}",
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status_code\": 412,\n    \"mensaje\": \"La cultura gastronomica con el id dado no está asociada con el restaurante\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar ua cultura gastronomica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"culturas-gastronomicas",
+						"{{cultura_Gastronomica_id}}"
+					]
+				},
+				"description": "Está petición solicita eliminar un restaurante especializado con un ID específico. El API devuelve un código de confirmación que el restaurante fue eliminado."
+			},
+			"response": [
+				{
+					"name": "Borrar un restaurante especializado",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/culturas-gastronomicas/{{cultura_Gastronomica_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"culturas-gastronomicas",
+								"{{cultura_Gastronomica_id}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

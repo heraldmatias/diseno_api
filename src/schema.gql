@@ -1,0 +1,94 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CategoriaEntity {
+  id: String!
+  nombre: String!
+  productos: [ProductoCaracteristicoEntity!]!
+}
+
+type ProductoCaracteristicoEntity {
+  id: String!
+  nombre: String!
+  descripcion: String!
+  historia: String!
+  categoria: CategoriaEntity!
+}
+
+type PaisEntity {
+  id: String!
+  nombre: String!
+  culturasGastronomicas: [CulturaGastronomicaEntity!]!
+  restaurantesEspecializados: [RestauranteEspecializadoEntity!]!
+}
+
+type RestauranteEspecializadoEntity {
+  id: String!
+  nombre: String!
+  ciudad: String!
+  culturasGastronomicas: [CulturaGastronomicaEntity!]!
+}
+
+type CulturaGastronomicaEntity {
+  id: String!
+  nombre: String!
+  descripcion: String!
+  restaurantesEspecializados: [RestauranteEspecializadoEntity!]!
+}
+
+type Query {
+  categorias: [CategoriaEntity!]!
+  categoria(id: String!): CategoriaEntity!
+  paises: [PaisEntity!]!
+  pais(id: String!): PaisEntity!
+  productoCaracteristicos: [ProductoCaracteristicoEntity!]!
+  productoCaracteristico(id: String!): ProductoCaracteristicoEntity!
+  restaurantes: [RestauranteEspecializadoEntity!]!
+  restaurante(id: String!): RestauranteEspecializadoEntity!
+  culturaByRestaurante(idRestaurante: String!, idCultura: String!): CulturaGastronomicaEntity!
+  culturasByRestaurante(idRestaurante: String!): [CulturaGastronomicaEntity!]!
+}
+
+type Mutation {
+  createCategoria(categoria: CategoriaDto!): CategoriaEntity!
+  updateCategoria(id: String!, categoria: CategoriaDto!): CategoriaEntity!
+  deleteCategoria(id: String!): String!
+  createPais(pais: PaisDto!): PaisEntity!
+  updatePais(id: String!, pais: PaisDto!): PaisEntity!
+  deletePais(id: String!): String!
+  createProductoCaracteristico(productoCaracteristico: ProductoCaracteristicoDto!): ProductoCaracteristicoEntity!
+  updateProductoCaracteristico(id: String!, productoCaracteristico: ProductoCaracteristicoDto!): ProductoCaracteristicoEntity!
+  deleteProductoCaracteristico(id: String!): String!
+  createRestaurante(restaurante: RestauranteEspecializadoDto!): RestauranteEspecializadoEntity!
+  updateRestaurante(id: String!, restaurante: RestauranteEspecializadoDto!): RestauranteEspecializadoEntity!
+  deleteRestaurante(id: String!): String!
+  addCulturaRestaurante(idRestaurante: String!, idCultura: String!): RestauranteEspecializadoEntity!
+  associateCulturasRestaurante(idRestaurante: String!, culturasGastronomicas: [CulturaGastronomicaDto!]!): RestauranteEspecializadoEntity!
+  deleteCulturaRestaurante(idRestaurante: String!, idCultura: String!): String!
+}
+
+input CategoriaDto {
+  nombre: String!
+}
+
+input PaisDto {
+  nombre: String!
+}
+
+input ProductoCaracteristicoDto {
+  nombre: String!
+  descripcion: String!
+  historia: String!
+}
+
+input RestauranteEspecializadoDto {
+  nombre: String!
+  ciudad: String!
+}
+
+input CulturaGastronomicaDto {
+  id: String!
+  nombre: String!
+  descripcion: String!
+}

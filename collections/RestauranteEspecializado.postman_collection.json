@@ -1,0 +1,732 @@
+{
+	"info": {
+		"_postman_id": "3aa0e6c8-3a97-46a0-ba47-f6ddbee054a4",
+		"name": "RestauranteEspecializado",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19677878"
+	},
+	"item": [
+		{
+			"name": "Log in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"token\", data.token);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"username\": \"admin\",\r\n   \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Log in",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"username\": \"admin\",\r\n   \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE2NjM0NzYwMTQsImV4cCI6MTY2MzQ4MzIxNH0.1qoW-SwwuKLifiQrDL1_7hVWaSmUiPWNsAOvaglwgTE\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Agregar un restaurante especializado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"restaurante_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"nombre\": \"La cosecha parrillada\",\r\n   \"ciudad\": \"Popayán\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Esta petición crea un restaurante especializado nuevo. El API devuelve la información del restaurante con el ID asignado por la base de datos."
+			},
+			"response": [
+				{
+					"name": "Agregar un restaurante especializado",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"nombre\": \"La cosecha parrillada\",\r\n   \"ciudad\": \"Popayán\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"nombre\": \"La cosecha parrillada\",\n    \"ciudad\": \"Popayán\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener todos los restaurantes especializados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of restaurantes > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados"
+					]
+				},
+				"description": "Esta petición solicita todos los restaurantes especializados registrados. El API devuelve la lista con la información de todos los restaurantes."
+			},
+			"response": [
+				{
+					"name": "Obtener todos los restaurantes especializados",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n  {\r\n    \"id\": 1,\r\n    \"nombre\": \"La Cosecha Parrillada\",\r\n    \"ciudad\": \"Popayán\",\r\n    \"pais\": {\r\n      \"id\": 1,\r\n      \"nombre\": \"Colombia\"\r\n    },\r\n    \"estrella_michelin\": [\r\n      {\r\n        \"id\": 1,\r\n        \"fecha_consecucion\": \"2015-05-22\"\r\n      },\r\n      {\r\n        \"id\": 2,\r\n        \"fecha_consecucion\": \"2017-08-12\"\r\n      },\r\n      {\r\n        \"id\": 3,\r\n        \"fecha_consecucion\": \"2020-04-20\"\r\n      }\r\n    ],\r\n    \"cultura_gastronomica\": [\r\n      {\r\n        \"id\": 1,\r\n        \"nombre\": \"Italiana\",\r\n        \"descripcion\": \"La gastronomía de Italia se caracteriza por los platos de elaboración sencilla. Sus ingredientes principales son el aceite de oliva, las hortalizas y las verduras típicas de la zona. Los platos de pasta más consumidos en esta parte de Italia son las populares pizzas, además de los espaguetis y los macarrones\"\r\n      },\r\n      {\r\n        \"id\": 2,\r\n        \"nombre\": \"Mexicana\",\r\n        \"descripcion\": \"La cultura gastronómica Mexicana es conocida por su suculencia y su gran variedad. Sus orígenes se remontan al período prehispánico, cuando una gran cantidad de platillos giraban alrededor del maíz, junto con otros ingredientes como: chiles, frijoles, calabazas, aguacate, tomate, cacao, nopal carne de conejo, armadillo y guajolote, así como insectos, ranas, tortugas y una gran variedad de frutas como ciruelas y pitayas\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"nombre\": \"Patio Bonito\",\r\n    \"ciudad\": \"Cali\",\r\n    \"pais\": {\r\n      \"id\": 1,\r\n      \"nombre\": \"Colombia\"\r\n    },\r\n    \"estrella_michelin\": [\r\n      {\r\n        \"id\": 4,\r\n        \"fecha_consecucion\": \"2016-07-24\"\r\n      }\r\n    ],\r\n    \"cultura_gastronomica\": [\r\n      {\r\n        \"id\": 1,\r\n        \"nombre\": \"Italiana\",\r\n        \"descripcion\": \"La gastronomía de Italia se caracteriza por los platos de elaboración sencilla. Sus ingredientes principales son el aceite de oliva, las hortalizas y las verduras típicas de la zona. Los platos de pasta más consumidos en esta parte de Italia son las populares pizzas, además de los espaguetis y los macarrones\"\r\n      }\r\n    ]\r\n  }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante especializado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Esta petición solicita un restaurante especializado con el ID especificado. El API devuelve la información detallada de este restaurante."
+			},
+			"response": [
+				{
+					"name": "Obtener un restaurante especializado",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"La Cosecha Parrillada\",\r\n    \"ciudad\": \"Popayán\",\r\n    \"pais\": {\r\n      \"id\": 1,\r\n      \"nombre\": \"Colombia\"\r\n    },\r\n    \"estrella_michelin\": [\r\n      {\r\n        \"id\": 1,\r\n        \"fecha_consecucion\": \"2015-05-22\"\r\n      },\r\n      {\r\n        \"id\": 2,\r\n        \"fecha_consecucion\": \"2017-08-12\"\r\n      },\r\n      {\r\n        \"id\": 3,\r\n        \"fecha_consecucion\": \"2020-04-20\"\r\n      }\r\n    ],\r\n    \"cultura_gastronomica\": [\r\n      {\r\n        \"id\": 1,\r\n        \"nombre\": \"Italiana\",\r\n        \"descripcion\": \"La gastronomía de Italia se caracteriza por los platos de elaboración sencilla. Sus ingredientes principales son el aceite de oliva, las hortalizas y las verduras típicas de la zona. Los platos de pasta más consumidos en esta parte de Italia son las populares pizzas, además de los espaguetis y los macarrones\"\r\n      },\r\n      {\r\n        \"id\": 2,\r\n        \"nombre\": \"Mexicana\",\r\n        \"descripcion\": \"La cultura gastronómica Mexicana es conocida por su suculencia y su gran variedad. Sus orígenes se remontan al período prehispánico, cuando una gran cantidad de platillos giraban alrededor del maíz, junto con otros ingredientes como: chiles, frijoles, calabazas, aguacate, tomate, cacao, nopal carne de conejo, armadillo y guajolote, así como insectos, ranas, tortugas y una gran variedad de frutas como ciruelas y pitayas\"\r\n      }\r\n    ]\r\n  }"
+				}
+			]
+		},
+		{
+			"name": "Obtener un restaurante especializado que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Está petición solicita un restaurante especializado con un ID que no está registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Obtener un restaurante especializado que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"status_code\": 404,\n    \"mensaje\": \"El restaurante especializado con el id dado no fue encontrado\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un restaurante especializado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"De la cosecha a tu paladar\",\r\n    \"ciudad\": \"Popayán\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Está petición solicita actualizar un restaurante especializado determinado por un ID con nueva información. El API devuelve la nueva información del restaurante."
+			},
+			"response": [
+				{
+					"name": "Actualizar un restaurante especializado",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"De la cosecha a tu paladar\",\r\n    \"ciudad\": \"Popayán\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"De la cosecha a tu paladar\",\r\n    \"ciudad\": \"Popayán\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un restaurante especializado que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"De la cosecha a tu paladar\",\r\n    \"ciudad\": \"Popayán\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Se solicita actualizar un restaurante especializado con un ID que no está registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Actualizar un restaurante especializado que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"De la cosecha a tu paladar\",\r\n    \"ciudad\": \"Popayán\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"status_code\": 404,\r\n    \"mensaje\": \"El restaurante especializado con el id dado no fue encontrado\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar un restaurante especializado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"{{restaurante_id}}"
+					]
+				},
+				"description": "Está petición solicita eliminar un restaurante especializado con un ID específico. El API devuelve un código de confirmación que el restaurante fue eliminado."
+			},
+			"response": [
+				{
+					"name": "Borrar un restaurante especializado",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/{{restaurante_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"{{restaurante_id}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Borrar un restaurante especializado que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El restaurante con el id dado no fue encontrado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/restaurantesespecializados/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"restaurantesespecializados",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				},
+				"description": "Está petición solicita eliminar un restaurante especializado con un ID que no está registrado. El API devuelve un código y mensaje de error."
+			},
+			"response": [
+				{
+					"name": "Borrar un restaurante especializado que no existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurantesespecializados/000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurantesespecializados",
+								"000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"status_code\": 404,\r\n    \"mensaje\": \"El restaurante especializado con el id dado no fue encontrado\"\r\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}
