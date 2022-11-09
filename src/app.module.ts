@@ -35,18 +35,7 @@ import { ApolloDriver } from '@nestjs/apollo';
     CulturaGastronomicaModule,
     ProductoCaracteristicoModule,
     RestauranteEspecializadoModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'culturasGastronomicas',
-      entities: [RecetaEntity, PaisEntity, ProductoCaracteristicoEntity, RestauranteEspecializadoEntity, CategoriaEntity, CulturaGastronomicaEntity],
-      dropSchema: true,
-      synchronize: true,
-      keepConnectionAlive: true,
-    }),
+    TypeOrmModule.forRoot(), // configuration will be passed with a ormconfig.json file
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       driver: ApolloDriver
