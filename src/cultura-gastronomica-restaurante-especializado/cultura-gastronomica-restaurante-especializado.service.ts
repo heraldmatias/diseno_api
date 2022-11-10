@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { InjectRepository } from '@nestjs/typeorm';
 import { CulturaGastronomicaEntity } from '../cultura-gastronomica/cultura-gastronomica.entity';
 import { RestauranteEspecializadoEntity } from '../restaurante-especializado/restaurante-especializado.entity';
@@ -77,8 +78,8 @@ export class CulturaGastronomicaRestauranteEspecializadoService {
         if (!culturaGastronomica)
           throw new BusinessLogicException("La cultura gastronomica con el id dado no fue encontrada", BusinessError.NOT_FOUND)
      
-        for (let i = 0; i < restaurantesEspecializados.length; i++) {
-          const restauranteEspecializado: RestauranteEspecializadoEntity = await this.restauranteEspecializadoRepository.findOne({where: {id: restaurantesEspecializados[i].id}});
+        for (const restaurant of restaurantesEspecializados) {
+          const restauranteEspecializado: RestauranteEspecializadoEntity = await this.restauranteEspecializadoRepository.findOne({where: {id: restaurant.id}});
           if (!restauranteEspecializado)
             throw new BusinessLogicException("El restaurante especializado con el id dado no fue encontrado", BusinessError.NOT_FOUND)
         }

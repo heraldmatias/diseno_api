@@ -85,8 +85,8 @@ export class RestauranteEspecializadoCulturaGastronomicaService {
     if (!restaurante)
       throw new BusinessLogicException("El restaurante especializado con el id dado no fue encontrado", BusinessError.NOT_FOUND)
 
-    for (let i = 0; i < culturas.length; i++) {
-      const cultura: CulturaGastronomicaEntity = await this.culturaRepository.findOne({where: {id: culturas[i].id}});
+    for (const culture of culturas) {
+      const cultura: CulturaGastronomicaEntity = await this.culturaRepository.findOne({where: {id: culture.id}});
       if (!cultura)
         throw new BusinessLogicException("La cultura gastronomica con el id dado no fue encontrada", BusinessError.NOT_FOUND)
     }
