@@ -114,21 +114,6 @@ export class PaisRestauranteService {
     }
 
     return cached;
-
-
-
-
-    const pais: PaisEntity = await this.paisRepository.findOne({
-      where: { id: paisId },
-      relations: ['restaurantesEspecializados'],
-    });
-    if (!pais)
-      throw new BusinessLogicException(
-        'El país con el id dado no fue encontrado',
-        BusinessError.NOT_FOUND,
-      );
-
-    return pais.restaurantesEspecializados;
   }
 
   async associateRestaurantesPais(
