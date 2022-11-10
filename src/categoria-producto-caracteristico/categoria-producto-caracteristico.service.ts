@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { ProductoCaracteristicoEntity } from '../producto-caracteristico/producto-caracteristico.entity';
 import { CategoriaEntity } from '../categoria/categoria.entity';
@@ -61,8 +62,8 @@ export class CategoriaProductoCaracteristicoService {
         if (!categorias)
           throw new BusinessLogicException("The categoria with the given id was not found", BusinessError.NOT_FOUND)
      
-        for (let i = 0; i < productos.length; i++) {
-          const producto: ProductoCaracteristicoEntity = await this.productoRepository.findOne({where: {id: productos[i].id}});
+        for (const product of productos) {
+          const producto: ProductoCaracteristicoEntity = await this.productoRepository.findOne({where: {id: product.id}});
           if (!producto)
             throw new BusinessLogicException("The producto with the given id was not found", BusinessError.NOT_FOUND)
         }

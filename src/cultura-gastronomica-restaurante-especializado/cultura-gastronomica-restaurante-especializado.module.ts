@@ -1,4 +1,4 @@
-import { CACHE_MANAGER, CacheModule, Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CulturaGastronomicaEntity } from '../cultura-gastronomica/cultura-gastronomica.entity';
 import { RestauranteEspecializadoEntity } from '../restaurante-especializado/restaurante-especializado.entity';
