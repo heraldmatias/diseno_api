@@ -92,6 +92,24 @@ describe('PaisService', () => {
     expect(storedReceta.video).toEqual(newReceta.video);
   });
 
+  it('delete debería eliminar una receta', async () => {
+    const receta: RecetaEntity = recetasList[0];
+    await service.delete(receta.id);
+    const deletedReceta: RecetaEntity = await repository.findOne({
+      where: { id: receta.id },
+    });
+    expect(deletedReceta).toBeNull();
+  });
+
+  it('delete debería arrojar una excepción para una receta inválida', async () => {
+    const receta: RecetaEntity = recetasList[0];
+    await service.delete(receta.id);
+    await expect(() => service.delete('0')).rejects.toHaveProperty(
+      'message',
+      'La receta con el id indicado no fue encontrada',
+    );
+  });
+
   it('update debería modificar una receta', async () => {
     const receta: RecetaEntity = recetasList[0];
     receta.nombre = 'Nuevo nombre';
@@ -114,24 +132,6 @@ describe('PaisService', () => {
       descripcion: 'Nueva descripcion',
     };
     await expect(() => service.update('0', receta)).rejects.toHaveProperty(
-      'message',
-      'La receta con el id indicado no fue encontrada',
-    );
-  });
-
-  it('delete debería eliminar una receta', async () => {
-    const receta: RecetaEntity = recetasList[0];
-    await service.delete(receta.id);
-    const deletedReceta: RecetaEntity = await repository.findOne({
-      where: { id: receta.id },
-    });
-    expect(deletedReceta).toBeNull();
-  });
-
-  it('delete debería arrojar una excepción para una receta inválida', async () => {
-    const receta: RecetaEntity = recetasList[0];
-    await service.delete(receta.id);
-    await expect(() => service.delete('0')).rejects.toHaveProperty(
       'message',
       'La receta con el id indicado no fue encontrada',
     );

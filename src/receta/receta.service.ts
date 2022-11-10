@@ -38,7 +38,7 @@ export class RecetaService {
     return await this.recetaRepository.save(receta);
   }
 
-  async update(id: string, receta: RecetaEntity = null): Promise<RecetaEntity> {
+  async update(id: string, receta: RecetaEntity): Promise<RecetaEntity> {
     const persistedReceta: RecetaEntity = await this.recetaRepository.findOne({
       where: { id },
     });
